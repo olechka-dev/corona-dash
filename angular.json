@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "corona-dash"
+    }
+  },
+  "defaultProject": "corona-dash",
+  "cli": {
+    "analytics": "730dd1a7-44c4-463d-b0e7-9ad41fedd7be"
+  }
 }
