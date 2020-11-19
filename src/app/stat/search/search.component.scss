@@ -1,0 +1,36 @@
+@import "material";
+@import "cities-palette";
+
+:host {
+    display: flex;
+    padding: 30px;
+    flex-direction: column;
+}
+
+.search-field {
+    width: 300px;
+}
+
+.selected-cities {
+    display: block;
+    margin: 10px 0;
+
+    .city-chip {
+        &-0 {
+            background-color: $brown-c;
+        }
+        &-1 {
+            background-color: $orange-c;
+        }
+        &-2 {
+            background-color: $red-c;
+        }
+        &-3 {
+            background-color: $yellow-c;
+        }
+        &-4 {
+            background-color: $lime-c;
+        }
+
+    }
+}

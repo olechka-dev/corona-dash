@@ -1,0 +1,24 @@
+<mat-form-field class="search-field">
+    <input #textInput type="text"
+           [placeholder]="placeHolder"
+           matInput
+           [formControl]="cityControl"
+           [matAutocomplete]="cityAuto">
+    <mat-autocomplete #cityAuto="matAutocomplete" (optionSelected)="onCitySelected($event)">
+        <ng-container *ngIf="(options$ | async) as filteredOptions">
+            <mat-option *ngFor="let option of filteredOptions" [value]="option">
+                {{option.city_name}}
+            </mat-option>
+            <mat-option [disabled]="true" *ngIf="!filteredOptions?.length && !!textInput.value.length">No results</mat-option>
+        </ng-container>
+    </mat-autocomplete>
+</mat-form-field>
+
+
+<mat-chip-list #chipList class="selected-cities">
+    <mat-chip *ngFor="let city of selectedCities; let i=index" class="city-chip-{{i}}"
+              [removable]="true" (removed)="onCityRemove(city)">
+        {{city.city_name}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+</mat-chip-list>

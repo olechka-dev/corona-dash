@@ -1,0 +1,6 @@
+<app-search
+    [cityControl]="cityControl"
+    [options$]="filteredOptions$"
+    (onCityListUpdate)="updateCities($event)"
+></app-search>
+<app-chart [chartData]="chartData"></app-chart>
