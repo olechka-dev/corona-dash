@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { City } from '../../shared/types/city.types';
 import { Observable } from 'rxjs';
-import { ChartHistoryData, CityHistory, HistoryItem } from '../../shared/types/history.types';
-import { environment } from '../../../environments/environment';
-import { map, take } from 'rxjs/operators';
-import { ChartDataSets } from 'chart.js';
+import { ChartHistoryData, HistoryItem } from '../../shared/types/history.types';
+import { map } from 'rxjs/operators';
 import { Label } from 'ng2-charts';
 
 @Injectable({
@@ -18,8 +16,8 @@ export class CoronaChartService {
 
 
     getChartData(cities: City[]): Observable<ChartHistoryData> {
-        const cityNames = cities.map(city => city.city_name).join(',');
-        return this.api.getHistory(cityNames)
+        const cityIds = cities.map(city => city._id).join(',');
+        return this.api.getHistory(cityIds)
             .pipe(
                 map(res => this.convertApiData(res.cities_history, cities))
             );

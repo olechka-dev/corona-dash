@@ -20,10 +20,10 @@ export class ApiService {
             .pipe(take(1));
     }
 
-    getHistory(cities: string): Observable<CityHistory> {
+    getHistory(cityIds: string): Observable<CityHistory> {
         return this.http.get<CityHistory>(`${environment.apiBase}/history`, {
             params: {
-                cities
+                cities_ids: cityIds
             }
         })
             .pipe(take(1));
