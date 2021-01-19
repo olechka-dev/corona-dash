@@ -14,6 +14,20 @@ export class CoronaChartService {
     constructor(private api: ApiService) {
     }
 
+    static transformDatesToLabels(value, index, values): string {
+        const date = new Date(value);
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        if (index === 0 || date.getDate() === 1) {
+            return date.toLocaleDateString('en-GB', options);
+        }
+        const dateStr = date.getDate().toString();
+        if (index % 3 === 0 && !['2', '30', '31'].includes(dateStr) || /\d+\s\S+\s\d{4}/.test(dateStr)) {
+            return dateStr;
+        } else {
+            return ' ';
+        }
+
+    }
 
     getChartData(cities: City[]): Observable<ChartHistoryData> {
         const cityIds = cities.map(city => city._id).join(',');
@@ -29,17 +43,8 @@ export class CoronaChartService {
             label: city.city_name
         }));
 
-        const labels = this.transformDatesToLabels(rawData.filter(item => item.city_id === cities[0]._id).map(item => item.created_at));
+        const labels = rawData.filter(item => item.city_id === cities[0]._id).map(item => item.created_at);
         return { dataSets, labels };
     }
 
-    private transformDatesToLabels(datesStr: string[]): Label[] {
-        const dates = datesStr.map((datesItem) => new Date(datesItem));
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        const labels: Label[] = [dates[0].toLocaleDateString('en-GB', options)];
-        for (let i = 1; i < dates.length; i++) {
-            labels.push(dates[i].getDate() === 1 ? dates[i].toLocaleDateString('en-GB', options) : dates[i].getDate().toString());
-        }
-        return labels;
-    }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { Observable, of, pipe } from 'rxjs';
+import { filter, switchMap, take } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { City } from '../../shared/types/city.types';
 import { IndexedDBService } from '../../core/services/indexed-db.service';
@@ -43,10 +43,19 @@ export class StatContainerComponent implements OnInit {
     }
 
     updateCities(cities: City[]): void {
-        this.chartsService.getChartData(JSON.parse(JSON.stringify(cities)))
-            .subscribe((data: ChartHistoryData) => {
-                this.chartData = JSON.parse(JSON.stringify(data));
-            });
+        if (cities.length) {
+            this.chartsService.getChartData(JSON.parse(JSON.stringify(cities)))
+                .pipe(take(1))
+                .subscribe((data: ChartHistoryData) => {
+                    this.chartData = JSON.parse(JSON.stringify(data));
+                });
+        } else {
+            this.chartData = {
+                dataSets: [],
+                labels: []
+            };
+        }
+
     }
 
 }

@@ -3,6 +3,7 @@ import { Color } from 'ng2-charts';
 import { ChartOptions } from 'chart.js';
 import { CITY_COLORS } from '../../shared/constants/colors';
 import { ChartHistoryData } from '../../shared/types/history.types';
+import { CoronaChartService } from '../../core/services/corona-chart.service';
 
 
 @Component({
@@ -22,6 +23,17 @@ export class ChartComponent implements OnChanges, OnInit {
 
     lineChartOptions: (ChartOptions & { annotation?: any }) = {
         responsive: true,
+        aspectRatio: 3,
+        maintainAspectRatio: true,
+        scales: {
+            xAxes: [{
+                ticks: {
+                    autoSkip: false,
+                    callback: CoronaChartService.transformDatesToLabels
+                }
+            }]
+
+        }
     };
     lineChartColors: Color[] = [];
     lineChartType = 'line';
@@ -33,6 +45,7 @@ export class ChartComponent implements OnChanges, OnInit {
                 borderColor: color,
                 backgroundColor: 'rgba(255,0,0,0)'
             }));
+
         }
 
     }
