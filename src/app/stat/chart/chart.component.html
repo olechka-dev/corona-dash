@@ -1,5 +1,5 @@
-<div>
-    <canvas baseChart
+<div class="chart-container">
+    <canvas baseChart width="{{cwidth}}" height="{{cheight}}"
             [datasets]="chartData.dataSets"
             [labels]="chartData.labels"
             [options]="lineChartOptions"
@@ -7,4 +7,9 @@
             [legend]="false"
             [chartType]="lineChartType">
     </canvas>
+</div>
+<div *ngIf="isLoading" class="loader">
+    <mat-progress-spinner [color]="'primary'"
+                          [mode]="'indeterminate'"
+                          [value]="50"></mat-progress-spinner>
 </div>

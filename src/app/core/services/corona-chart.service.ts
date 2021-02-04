@@ -14,19 +14,23 @@ export class CoronaChartService {
     constructor(private api: ApiService) {
     }
 
-    static transformDatesToLabels(value, index, values): string {
-        const date = new Date(value);
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        if (index === 0 || date.getDate() === 1) {
-            return date.toLocaleDateString('en-GB', options);
-        }
-        const dateStr = date.getDate().toString();
-        if (index % 3 === 0 && !['2', '30', '31'].includes(dateStr) || /\d+\s\S+\s\d{4}/.test(dateStr)) {
-            return dateStr;
-        } else {
-            return ' ';
-        }
 
+
+    static transformDatesToLabels(freq: number) {
+
+        return (value, index, values) => {
+            const date = new Date(value);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            if (index === 0 || date.getDate() === 1) {
+                return date.toLocaleDateString('en-GB', options);
+            }
+            const dateStr = date.getDate().toString();
+            if (index % freq === 0 && !['2', '30', '31'].includes(dateStr) || /\d+\s\S+\s\d{4}/.test(dateStr)) {
+                return dateStr;
+            } else {
+                return ' ';
+            }
+        };
     }
 
     getChartData(cities: City[]): Observable<ChartHistoryData> {

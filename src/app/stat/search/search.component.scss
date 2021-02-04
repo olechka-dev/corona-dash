@@ -1,4 +1,3 @@
-@import "material";
 @import "cities-palette";
 
 :host {
@@ -10,10 +9,18 @@
 .search-field {
     width: 300px;
 }
+::ng-deep .mat-form-field {
+    font-size: 18px !important;
+}
 
 .selected-cities {
     display: block;
     margin: 10px 0;
+
+    mat-chip {
+        font-size: 18px;
+        height: 38px;
+    }
 
     .city-chip {
         &-0 {

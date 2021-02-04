@@ -24,6 +24,9 @@ export class IndexedDBService {
     }
 
     init(): void {
+        if (!window.indexedDB) {
+            return;
+        }
         this.request = window.indexedDB.open(DB, 1);
         this.request.onsuccess = this.successHandlerExistingDB; // if DB exists, onsuccess will fire after
                                                                 // opening, so we assign the existing db handler by default.

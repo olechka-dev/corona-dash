@@ -16,19 +16,19 @@ export class SearchComponent implements OnInit {
     @Output() onCityListUpdate = new EventEmitter<City[]>();
 
     selectedCities: City[] = [];
-    placeHolder = 'Search Location';
+    placeHolder = 'Search Location in Hebrew';
 
     constructor() {
     }
 
     ngOnInit(): void {
         this.cityControl.registerOnDisabledChange((isDisabled) => {
-            this.placeHolder = isDisabled ? 'Maximum of 5 cities reached' : 'Search Location';
+            this.placeHolder = isDisabled ? 'Maximum of 5 cities reached' : 'Search Location in Hebrew';
         });
     }
 
     onCityRemove(city): void {
-        const index = this.selectedCities.findIndex((item) => item._id === city.id);
+        const index = this.selectedCities.findIndex((item) => item._id === city._id);
         this.selectedCities.splice(index, 1);
         this.onCityListUpdate.emit(JSON.parse(JSON.stringify(this.selectedCities)));
         if (this.cityControl.disabled) {
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
     onCitySelected(e: MatAutocompleteSelectedEvent): void {
         const city = e.option.value;
         this.cityControl.reset();
-        if (!this.selectedCities.find((item) => item._id === city.id)) {
+        if (!this.selectedCities.find((item) => item._id === city._id)) {
             this.selectedCities.push(city);
             this.onCityListUpdate.emit(JSON.parse(JSON.stringify(this.selectedCities)));
         }

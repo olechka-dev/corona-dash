@@ -1,1 +1,23 @@
+@import "cities-palette";
+:host {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    .disclaimer {
+
+        flex: 1 0 auto;
+        padding: 10px 0;
+        width: 100%;
+        color: $msg-brown;
+        display: flex;
+        align-items: flex-end;
+        p {
+            text-align: center;
+            width: 100%;
+        }
+
+    }
+}
+
 

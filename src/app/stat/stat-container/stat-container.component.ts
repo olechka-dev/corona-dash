@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of, pipe } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { City } from '../../shared/types/city.types';
 import { IndexedDBService } from '../../core/services/indexed-db.service';
 import { ChartHistoryData } from '../../shared/types/history.types';
@@ -22,6 +21,8 @@ export class StatContainerComponent implements OnInit {
         dataSets: [],
         labels: []
     };
+    showNotSupportedBrowserMsg = false;
+    isLoading = false;
 
 
     constructor(private idb: IndexedDBService,
@@ -29,6 +30,7 @@ export class StatContainerComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.showNotSupportedBrowserMsg = !window.indexedDB;
         this.filteredOptions$ = this.cityControl.valueChanges
             .pipe(
                 filter((val) => {
@@ -44,10 +46,12 @@ export class StatContainerComponent implements OnInit {
 
     updateCities(cities: City[]): void {
         if (cities.length) {
+            this.isLoading = true;
             this.chartsService.getChartData(JSON.parse(JSON.stringify(cities)))
                 .pipe(take(1))
                 .subscribe((data: ChartHistoryData) => {
                     this.chartData = JSON.parse(JSON.stringify(data));
+                    this.isLoading = false;
                 });
         } else {
             this.chartData = {

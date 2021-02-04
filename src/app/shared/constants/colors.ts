@@ -3,5 +3,5 @@ export const CITY_COLORS = [
     '#ffcc80',
     '#ef9a9a',
     '#fff59d',
-    '#c1dc9d'
+    '#cddc39'
 ];

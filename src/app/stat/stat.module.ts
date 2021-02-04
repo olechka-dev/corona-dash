@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ChartComponent } from './chart/chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { SearchComponent } from './search/search.component';
+import { SharedModule } from '../shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { SearchComponent } from './search/search.component';
         statRouter,
         MatAutocompleteModule,
         MatFormFieldModule,
+        MatProgressSpinnerModule,
         ReactiveFormsModule,
         FormsModule,
         MatInputModule,
         MatChipsModule,
         MatIconModule,
-        ChartsModule
+        ChartsModule,
+        SharedModule
     ]
 })
 export class StatModule {

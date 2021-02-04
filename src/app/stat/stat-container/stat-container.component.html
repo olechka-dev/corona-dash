@@ -3,4 +3,8 @@
     [options$]="filteredOptions$"
     (onCityListUpdate)="updateCities($event)"
 ></app-search>
-<app-chart [chartData]="chartData"></app-chart>
+<app-chart [chartData]="chartData" [isLoading]="isLoading"></app-chart>
+<app-not-supported-browser-msg *ngIf="showNotSupportedBrowserMsg"></app-not-supported-browser-msg>
+<div class="disclaimer">
+    <p>© KKK</p>
+</div>
